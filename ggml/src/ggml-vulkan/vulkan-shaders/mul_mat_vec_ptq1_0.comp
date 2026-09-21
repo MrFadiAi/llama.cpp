@@ -32,6 +32,10 @@ void calc_superblock(const uint a_offset, const uint b_offset, const uint itid, 
         mi = 0u;
     }
 
+    // tail guard: this thread's block may be past the end of a short row;
+    // return before touching B or A (1-3 block rows are legal in PTQ1_0)
+    if (i >= num_blocks_per_row) { return; }
+
     const uint y_idx = i * QUANT_K + e0;
 
     // B vectors fetched ONCE for all 4 rows

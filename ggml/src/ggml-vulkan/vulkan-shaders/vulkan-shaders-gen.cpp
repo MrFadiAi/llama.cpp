@@ -902,7 +902,7 @@ void process_shaders() {
     string_to_spv("repeat_i16", "repeat.comp", {{"A_TYPE", "int16_t"}, {"D_TYPE", "int16_t"}});
 
     string_to_spv("scale_f32", "scale.comp", {{"A_TYPE", "float"}, {"D_TYPE", "float"}, {"FLOAT_TYPE", "float"}});
-    string_to_spv("scale_bf16", "scale.comp", {{"A_TYPE", "float16_t"}, {"D_TYPE", "float16_t"}, {"FLOAT_TYPE", "float"}});
+    string_to_spv("scale_bf16", "scale.comp", {{"A_TYPE", "uint16_t"}, {"D_TYPE", "uint16_t"}, {"FLOAT_TYPE", "float"}, {"SCALE_BF16", "1"}});
 
     string_to_spv("pad_f32", "pad.comp", {{"A_TYPE", "float"}, {"D_TYPE", "float"}});
     string_to_spv("pad_reflect_1d_f32", "pad_reflect_1d.comp", {{"A_TYPE", "float"}, {"D_TYPE", "float"}});
@@ -1087,8 +1087,11 @@ void process_shaders() {
     string_to_spv("gated_delta_net_rows_f32_nocluster", "gated_delta_net.comp", merge_maps(base_dict, {{"FLOAT_TYPE", "float"}, {"USE_SUBGROUP_ADD", "1"}, {"USE_SUBGROUP_CLUSTERED", "0"}, {"USE_STATE_ROWS", "1"}}));
     string_to_spv("gated_delta_net_rows_f32_shmem", "gated_delta_net.comp", merge_maps(base_dict, {{"FLOAT_TYPE", "float"}, {"USE_SUBGROUP_ADD", "0"}, {"USE_SUBGROUP_CLUSTERED", "0"}, {"USE_STATE_ROWS", "1"}}));
     string_to_spv("gated_delta_net_rows_bf16state_f32", "gated_delta_net.comp", merge_maps(base_dict, {{"FLOAT_TYPE", "float"}, {"USE_SUBGROUP_ADD", "1"}, {"USE_SUBGROUP_CLUSTERED", "1"}, {"USE_STATE_ROWS", "1"}, {"STATE_BF16", "1"}}));
+    string_to_spv("gated_delta_net_rows_bf16state_rawgates_f32", "gated_delta_net.comp", merge_maps(base_dict, {{"FLOAT_TYPE", "float"}, {"USE_SUBGROUP_ADD", "1"}, {"USE_SUBGROUP_CLUSTERED", "1"}, {"USE_STATE_ROWS", "1"}, {"STATE_BF16", "1"}, {"RAW_GATES", "1"}}));
     string_to_spv("gated_delta_net_rows_bf16state_f32_nocluster", "gated_delta_net.comp", merge_maps(base_dict, {{"FLOAT_TYPE", "float"}, {"USE_SUBGROUP_ADD", "1"}, {"USE_SUBGROUP_CLUSTERED", "0"}, {"USE_STATE_ROWS", "1"}, {"STATE_BF16", "1"}}));
+    string_to_spv("gated_delta_net_rows_bf16state_rawgates_f32_nocluster", "gated_delta_net.comp", merge_maps(base_dict, {{"FLOAT_TYPE", "float"}, {"USE_SUBGROUP_ADD", "1"}, {"USE_SUBGROUP_CLUSTERED", "0"}, {"USE_STATE_ROWS", "1"}, {"STATE_BF16", "1"}, {"RAW_GATES", "1"}}));
     string_to_spv("gated_delta_net_rows_bf16state_f32_shmem", "gated_delta_net.comp", merge_maps(base_dict, {{"FLOAT_TYPE", "float"}, {"USE_SUBGROUP_ADD", "0"}, {"USE_SUBGROUP_CLUSTERED", "0"}, {"USE_STATE_ROWS", "1"}, {"STATE_BF16", "1"}}));
+    string_to_spv("gated_delta_net_rows_bf16state_rawgates_f32_shmem", "gated_delta_net.comp", merge_maps(base_dict, {{"FLOAT_TYPE", "float"}, {"USE_SUBGROUP_ADD", "0"}, {"USE_SUBGROUP_CLUSTERED", "0"}, {"USE_STATE_ROWS", "1"}, {"STATE_BF16", "1"}, {"RAW_GATES", "1"}}));
 
     string_to_spv("opt_step_adamw_f32", "opt_step_adamw.comp", merge_maps(base_dict, {{"A_TYPE", "float"}}));
     string_to_spv("opt_step_sgd_f32", "opt_step_sgd.comp", merge_maps(base_dict, {{"A_TYPE", "float"}}));
